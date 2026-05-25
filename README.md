@@ -1,5 +1,3 @@
----
-
 # Care, Made Simple — Scrolling Hero Section
 
 A self-contained embeddable hero section for HealthHub. Features a two-column vertical scrolling treatment card marquee alongside a headline, bullet points, and a CTA button.
@@ -45,5 +43,3 @@ The button is intentionally a dead link (`pointer-events: none`). Replace `href=
 | `< 768px` | Single column, marquee hidden |
 | `≥ 768px` | Two column, marquee visible |
 | `≥ 1024px` | Larger padding and card sizes |
-
----
