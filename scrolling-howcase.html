@@ -1,0 +1,383 @@
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<div class="hh-pch">
+
+  <style>
+    /* ── Tokens ── all scoped under .hh-pch ── */
+    .hh-pch {
+      --ink:         #2f354e;
+      --ink-2:       #4a5269;
+      --muted:       #7b8294;
+      --soft-text:   #5a627a;
+      --bg:          #fff4ec;
+      --canvas:      #fffbf7;
+      --card-base:   #fde8dc;
+      --line:        rgba(47,53,78,.10);
+      --line-strong: rgba(47,53,78,.18);
+      --accent:      #fe491a;
+      --accent-dk:   #d63a0f;
+      --accent-soft: #ffe8de;
+      font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      color: var(--ink);
+    }
+    .hh-pch *, .hh-pch *::before, .hh-pch *::after {
+      box-sizing: border-box;
+    }
+
+    /* ── Hero section ── */
+    .hh-pch .pch-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 56px 36px 48px;
+      border-radius: 20px;
+      border: 1px solid var(--line-strong);
+      background:
+        radial-gradient(860px 440px at 108% -8%,  rgba(254,73,26,.07)  0%, transparent 58%),
+        radial-gradient(680px 380px at -8%  108%, rgba(188,226,242,.32) 0%, transparent 58%),
+        linear-gradient(170deg, var(--canvas) 0%, var(--bg) 100%);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.8) inset,
+        0 32px 80px -24px rgba(47,53,78,.12);
+    }
+
+    /* ── Grid ── */
+    .hh-pch .pch-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* ── Marquee ── */
+    .hh-pch .pch-marquee {
+      display: none;
+      position: relative;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      height: 560px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .hh-pch .pch-fade {
+      position: absolute; left: 0; right: 0; height: 90px;
+      pointer-events: none; z-index: 2;
+    }
+    .hh-pch .pch-fade-top { top: 0;    background: linear-gradient(180deg, var(--bg) 0%, transparent 100%); }
+    .hh-pch .pch-fade-bot { bottom: 0; background: linear-gradient(0deg,   var(--bg) 0%, transparent 100%); }
+
+    .hh-pch .pch-col {
+      display: flex; flex-direction: column; gap: 14px;
+      will-change: transform;
+    }
+    .hh-pch .pch-col-a { animation: hh-scroll-up   42s linear infinite; }
+    .hh-pch .pch-col-b { animation: hh-scroll-down 36s linear infinite; }
+
+    @keyframes hh-scroll-up   { from { transform: translateY(0);    } to { transform: translateY(-50%); } }
+    @keyframes hh-scroll-down { from { transform: translateY(-50%); } to { transform: translateY(0);    } }
+
+    /* ── Cards ── */
+    .hh-pch .pch-card {
+      position: relative;
+      flex: 0 0 auto;
+      height: 156px;
+      padding: 16px 14px 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.55);
+      background-color: var(--card-base);
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.6) inset,
+        0 4px 16px rgba(47,53,78,.08);
+      transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s cubic-bezier(.2,.8,.2,1);
+    }
+    .hh-pch .pch-card:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 8px 28px rgba(47,53,78,.14);
+    }
+    .hh-pch .pch-card::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(200px 130px at 80% 15%, rgba(255,255,255,.5), transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .hh-pch .pch-card-label {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      flex: 1 1 auto; min-width: 0;
+    }
+    .hh-pch .pch-card-label span {
+      font-size: 18px; font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.05;
+      color: var(--ink);
+    }
+    .hh-pch .pch-card-label small {
+      margin-top: 5px;
+      color: var(--soft-text);
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .11em;
+    }
+    .hh-pch .pch-card-img {
+      position: relative; z-index: 1;
+      flex: 0 0 auto;
+      height: 94%; width: auto; max-width: 48%;
+      object-fit: contain; align-self: center;
+      filter: drop-shadow(0 8px 16px rgba(47,53,78,.20));
+      pointer-events: none;
+    }
+
+    /* Card tints */
+    .hh-pch .pch-card[data-tone="weight"]  { background-image: linear-gradient(135deg,rgba(255,241,229,.94),rgba(255,233,215,.88) 100%), url("https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68be3f8a924c1f3a2bff0600_weightloss.avif"); }
+    .hh-pch .pch-card[data-tone="aging"]   { background-image: linear-gradient(135deg,rgba(230,238,245,.94),rgba(214,226,238,.88) 100%), url("https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68be3c53961565b4f2155f79_anti-age.avif"); }
+    .hh-pch .pch-card[data-tone="peptides"]{ background-image: linear-gradient(135deg,rgba(244,235,222,.94),rgba(236,224,206,.88) 100%), url("https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/691ce7a3a7cbefbcd4a44597_peptides.avif"); }
+    .hh-pch .pch-card[data-tone="testo"]   { background-image: linear-gradient(135deg,rgba(253,226,210,.94),rgba(248,213,192,.88) 100%), url("https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/693b229e98ccd682c9f64f3a_trtpage.avif"); }
+    .hh-pch .pch-card[data-tone="hair"]    { background-image: linear-gradient(135deg,rgba(236,230,223,.94),rgba(222,213,202,.88) 100%), url("https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/69efe6ccf35eca0c83b43e61_hairlosstm.avif"); }
+
+    /* ── Text column ── */
+    .hh-pch .pch-text {
+      display: flex; flex-direction: column;
+    }
+
+    .hh-pch .pch-eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      align-self: flex-start;
+      margin: 0 0 26px;
+      padding: 7px 16px 7px 10px;
+      border: 1px solid rgba(254,73,26,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: var(--accent-dk);
+      font-size: 12px; font-weight: 600; letter-spacing: .02em;
+    }
+    .hh-pch .pch-dot {
+      position: relative;
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+    .hh-pch .pch-dot::after {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: var(--accent);
+      opacity: .35;
+      animation: hh-pulse 2.6s cubic-bezier(.2,.8,.2,1) infinite;
+    }
+    @keyframes hh-pulse {
+      0%   { transform: scale(1);   opacity: .35; }
+      100% { transform: scale(3.8); opacity: 0;   }
+    }
+
+    .hh-pch .pch-h1 {
+      margin: 0 0 30px;
+      color: var(--ink);
+      font-size: clamp(44px, 8.5vw, 82px);
+      line-height: .97;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      max-width: 13ch;
+    }
+
+    .hh-pch .pch-bullets {
+      list-style: none;
+      padding: 0; margin: 0 0 36px;
+      display: flex; flex-direction: column; gap: 13px;
+    }
+    .hh-pch .pch-bullets li {
+      display: flex; align-items: center; gap: 13px;
+      color: var(--ink-2);
+      font-size: 15px; font-weight: 500;
+      letter-spacing: -.005em;
+    }
+    .hh-pch .pch-bullet {
+      width: 9px; height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .hh-pch .pch-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      align-self: flex-start;
+      min-height: 56px;
+      padding: 0 30px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px; font-weight: 700;
+      text-decoration: none;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.2) inset,
+        0 16px 36px -12px rgba(254,73,26,.5);
+    }
+
+    .hh-pch .pch-foot {
+      margin: 26px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 6px 10px;
+      color: var(--muted);
+      font-size: 12px; font-weight: 500;
+    }
+    .hh-pch .pch-foot .pch-sep { color: var(--line-strong); }
+
+    /* ── Tablet ── */
+    @media (min-width: 768px) {
+      .hh-pch .pch-grid {
+        grid-template-columns: 1fr 1.08fr;
+        gap: 52px;
+      }
+      .hh-pch .pch-marquee { display: grid; }
+      .hh-pch .pch-bullets li { font-size: 16px; }
+    }
+
+    /* ── Desktop ── */
+    @media (min-width: 1024px) {
+      .hh-pch .pch-hero { padding: 72px 64px 60px; }
+      .hh-pch .pch-grid { gap: 72px; }
+      .hh-pch .pch-marquee { height: 600px; }
+      .hh-pch .pch-card { height: 172px; padding: 20px 16px 18px 22px; }
+      .hh-pch .pch-card-label span { font-size: 21px; }
+      .hh-pch .pch-card-label small { font-size: 11px; }
+      .hh-pch .pch-h1 { font-size: clamp(52px, 5.6vw, 88px); }
+      .hh-pch .pch-bullets li { font-size: 17px; }
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hh-pch .pch-col-a,
+      .hh-pch .pch-col-b { animation: none; }
+      .hh-pch .pch-dot::after { animation: none; opacity: 0; }
+      .hh-pch .pch-card { transition: none; }
+      .hh-pch .pch-card:hover { transform: none; }
+    }
+  </style>
+
+  <section class="pch-hero" aria-label="Personalized care intro">
+    <div class="pch-grid">
+
+      <!-- Left: vertical scrolling marquee -->
+      <div class="pch-marquee" aria-hidden="true">
+        <div class="pch-fade pch-fade-top"></div>
+        <div class="pch-fade pch-fade-bot"></div>
+
+        <!-- Column A – scrolls up -->
+        <div class="pch-col pch-col-a">
+          <div class="pch-card" data-tone="weight">
+            <div class="pch-card-label"><span>Weight&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/6a0b70bd914cf0f5a765e728_tirzepatide-oral-dissolving-tablet-1.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="aging">
+            <div class="pch-card-label"><span>Anti-Aging</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68bc248c8256e43b1e12a1fd_nadin.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="peptides">
+            <div class="pch-card-label"><span>Peptides</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68beafdab3c5dca9e9a84d28_sermsublingual.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="hair">
+            <div class="pch-card-label"><span>Hair&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/69e82b95113c45c96bde2b2a_hairloss-scalp-pr.avif" alt="" decoding="async">
+          </div>
+          <!-- Duplicate set for seamless loop -->
+          <div class="pch-card" data-tone="weight">
+            <div class="pch-card-label"><span>Weight&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/6a0b70bd914cf0f5a765e728_tirzepatide-oral-dissolving-tablet-1.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="aging">
+            <div class="pch-card-label"><span>Anti-Aging</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68bc248c8256e43b1e12a1fd_nadin.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="peptides">
+            <div class="pch-card-label"><span>Peptides</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68beafdab3c5dca9e9a84d28_sermsublingual.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="hair">
+            <div class="pch-card-label"><span>Hair&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/69e82b95113c45c96bde2b2a_hairloss-scalp-pr.avif" alt="" decoding="async">
+          </div>
+        </div>
+
+        <!-- Column B – scrolls down -->
+        <div class="pch-col pch-col-b">
+          <div class="pch-card" data-tone="testo">
+            <div class="pch-card-label"><span>Testosterone</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/694b591b640ea365f9604514_testosterone1m.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="hair">
+            <div class="pch-card-label"><span>Hair&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/69e82b95113c45c96bde2b2a_hairloss-scalp-pr.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="aging">
+            <div class="pch-card-label"><span>Anti-Aging</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68bc248c8256e43b1e12a1fd_nadin.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="peptides">
+            <div class="pch-card-label"><span>Peptides</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68beafdab3c5dca9e9a84d28_sermsublingual.avif" alt="" decoding="async">
+          </div>
+          <!-- Duplicate set for seamless loop -->
+          <div class="pch-card" data-tone="testo">
+            <div class="pch-card-label"><span>Testosterone</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/694b591b640ea365f9604514_testosterone1m.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="hair">
+            <div class="pch-card-label"><span>Hair&nbsp;Loss</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/69e82b95113c45c96bde2b2a_hairloss-scalp-pr.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="aging">
+            <div class="pch-card-label"><span>Anti-Aging</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68bc248c8256e43b1e12a1fd_nadin.avif" alt="" decoding="async">
+          </div>
+          <div class="pch-card" data-tone="peptides">
+            <div class="pch-card-label"><span>Peptides</span><small>Care plan</small></div>
+            <img class="pch-card-img" src="https://cdn.prod.website-files.com/68b3130487f35d2c5c99b157/68beafdab3c5dca9e9a84d28_sermsublingual.avif" alt="" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: text -->
+      <div class="pch-text">
+        <p class="pch-eyebrow">
+          <span class="pch-dot" aria-hidden="true"></span>
+          Care built around you
+        </p>
+
+        <h2 class="pch-h1">Care,<br>made simple.</h2>
+
+        <ul class="pch-bullets" aria-label="What you get">
+          <li><span class="pch-bullet" aria-hidden="true"></span>Doctor-reviewed plans</li>
+          <li><span class="pch-bullet" aria-hidden="true"></span>Transparent pricing</li>
+          <li><span class="pch-bullet" aria-hidden="true"></span>Discreet doorstep delivery</li>
+        </ul>
+
+        <!-- Dead CTA link -->
+        <a class="pch-cta" href="#"">
+          <span>Browse treatments</span>
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <p class="pch-foot">
+          <span>US-licensed providers</span>
+          <span class="pch-sep" aria-hidden="true">·</span>
+          <span>US partner pharmacy</span>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
