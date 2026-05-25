@@ -4,6 +4,10 @@
 
 A self-contained embeddable hero section for HealthHub. Features a two-column vertical scrolling treatment card marquee alongside a headline, bullet points, and a CTA button.
 
+## View Live
+
+👉 [**Live Demo**](https://azmeeahmed.github.io/Scrolling-Showcase/)
+
 ## Usage
 
 Drop `healthhub-hero.html` directly into any page. No build step, no dependencies.
